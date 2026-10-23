@@ -1,0 +1,5 @@
+pets.db
+__pycache__/
+*.pyc
+temp_test_image.jpg
+idk.py
