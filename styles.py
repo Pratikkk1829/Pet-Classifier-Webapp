@@ -277,10 +277,76 @@ header[data-testid="stHeader"] {
     padding: 20px !important;
     margin-bottom: 20px !important;
     transition: all 0.2s ease-in-out !important;
+    overflow: hidden !important;
 }
 
 [data-testid="stVerticalBlockBorderWrapper"]:hover {
     box-shadow: 11px 11px 20px #98a6bb, -11px -11px 20px #ffffff !important;
+}
+
+/* Image Preview: natural aspect ratio, centered, max-height 380px, never overflows box */
+[data-testid="stImage"] {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    overflow: hidden !important;
+}
+
+[data-testid="stImage"] > img,
+[data-testid="stImage"] img {
+    max-width: 100% !important;
+    max-height: 380px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 12px !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* Sidebar collapse & expand toggle buttons — larger and touch-friendly */
+[data-testid="collapsedControl"],
+[data-testid="stSidebarCollapseButton"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+[data-testid="collapsedControl"] button,
+[data-testid="stSidebarCollapseButton"] button {
+    background: #e0e5ec !important;
+    border-radius: 12px !important;
+    box-shadow: 3px 3px 7px #a3b1c6, -3px -3px 7px #ffffff !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    color: #6c63ff !important;
+    padding: 0 !important;
+    margin: 4px !important;
+}
+
+[data-testid="collapsedControl"] button:hover,
+[data-testid="stSidebarCollapseButton"] button:hover {
+    box-shadow: inset 2px 2px 5px #b8b9be, inset -2px -2px 5px #ffffff !important;
+}
+
+[data-testid="collapsedControl"] svg,
+[data-testid="stSidebarCollapseButton"] svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* Sidebar responsive mobile width */
+@media (max-width: 768px) {
+    [data-testid="stSidebar"] {
+        max-width: 82vw !important;
+    }
 }
 
 /* Responsive Columns: Stacks nicely on smaller screens */
@@ -350,40 +416,28 @@ header[data-testid="stHeader"] {
     box-shadow: 0 0 8px 2px rgba(108, 99, 255, 0.65);
 }
 
-/* ===== Persistent floating limits banner ===== */
+/* ===== Limits footer — displays cleanly at bottom of page content ===== */
 .limits-footer {
-    position: fixed;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99999999 !important;
+    position: relative !important;
+    margin: 48px auto 24px auto !important;
     background: #e0e5ec;
     border-radius: 20px;
     box-shadow: 6px 6px 16px #a3b1c6, -6px -6px 16px #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.7);
-    padding: 8px 24px;
+    padding: 14px 24px;
     text-align: center;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #434c6e;
     letter-spacing: 0.01em;
-    width: max-content;
-    max-width: 92vw;
+    width: fit-content;
+    max-width: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    pointer-events: none;
-    transition: left 0.3s ease-in-out, max-width 0.3s ease-in-out;
-}
-
-/* On desktop with expanded sidebar, center the banner cleanly inside the main content area */
-@media (min-width: 992px) {
-    [data-testid="stSidebar"][aria-expanded="true"] ~ [data-testid="stAppViewContainer"] .limits-footer {
-        left: calc(50% + 150px);
-        max-width: calc(100vw - 360px);
-    }
+    gap: 4px;
+    clear: both !important;
 }
 
 .limits-footer b {
@@ -400,12 +454,6 @@ header[data-testid="stHeader"] {
     font-size: 0.72rem;
     font-weight: 500;
     color: #636d8d;
-}
-
-/* Push page content up so the floating banner doesn't cover content when scrolled to bottom */
-.stApp > div:first-child,
-[data-testid="stAppViewContainer"] > section:first-child {
-    padding-bottom: 75px !important;
 }
 </style>
 """

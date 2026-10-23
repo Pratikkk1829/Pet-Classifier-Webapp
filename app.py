@@ -33,7 +33,7 @@ st.set_page_config(
     page_title="Pet Classifier",
     page_icon="🐾",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="auto"
 )
 
 # Protect against decompression bomb attacks by setting a strict pixel limit
@@ -41,22 +41,6 @@ Image.MAX_IMAGE_PIXELS = 10_000_000
 
 # Inject our Neumorphic (Soft UI) CSS styling
 st.markdown(NEUMORPHIC_CSS, unsafe_allow_html=True)
-
-# Persistent limits banner — floating above the bottom on every page
-st.markdown("""
-    <div class="limits-footer">
-        <div>
-            <span>⚠️ System Limits:</span>
-            <b>Upload Limit:</b> Max 5 MB per image (JPG/PNG/WEBP) &nbsp;·&nbsp;
-            <b>Scope Limit:</b> Cats &amp; Dogs only across 132 breeds (others rejected) &nbsp;·&nbsp;
-            <b>Server Limit:</b> Max 2 concurrent inferences to avoid CPU overload &nbsp;·&nbsp;
-            <b>Storage Limit:</b> RAM-only (no images saved to disk)
-        </div>
-        <div class="limits-explain">
-            (Why 132 breeds? Trained on 12 cat &amp; 120 dog breeds from the Oxford-IIIT Pet and Stanford Dogs datasets; wild felines/canines and unindexed breeds fall outside this vocabulary)
-        </div>
-    </div>
-""", unsafe_allow_html=True)
 
 # Initialize the SQLite database tables and seed data if not already done
 database.init_db()
@@ -177,7 +161,7 @@ if page == "🐾 Classify":
 
         with col_img:
             with st.container(border=True):
-                st.image(pil_img, caption="Image Preview", width=380)
+                st.image(pil_img, caption="Image Preview")
 
         with col_action:
             with st.container(border=True):
@@ -633,3 +617,22 @@ elif page == "ℹ️ About":
                 </ul>
             </div>
         """, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------------------------------
+# Persistent Limits Footer — displays at the bottom of every page
+# ------------------------------------------------------------------------------
+st.markdown("""
+    <div class="limits-footer">
+        <div>
+            <span>⚠️ System Limits:</span>
+            <b>Upload Limit:</b> Max 5 MB per image (JPG/PNG/WEBP) &nbsp;·&nbsp;
+            <b>Scope Limit:</b> Cats &amp; Dogs only across 132 breeds (others rejected) &nbsp;·&nbsp;
+            <b>Server Limit:</b> Max 2 concurrent inferences to avoid CPU overload &nbsp;·&nbsp;
+            <b>Storage Limit:</b> RAM-only (no images saved to disk)
+        </div>
+        <div class="limits-explain">
+            (Why 132 breeds? Trained on 12 cat &amp; 120 dog breeds from the Oxford-IIIT Pet and Stanford Dogs datasets; wild felines/canines and unindexed breeds fall outside this vocabulary)
+        </div>
+    </div>
+""", unsafe_allow_html=True)
