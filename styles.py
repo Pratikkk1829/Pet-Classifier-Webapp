@@ -63,6 +63,11 @@ span[class*="material-icons"],
     background-color: #e0e5ec !important;
     box-shadow: 5px 0 15px #c8d0de !important;
     border-right: none !important;
+    z-index: 50 !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    z-index: 60 !important;
 }
 
 /* Header transparency */
@@ -351,7 +356,7 @@ header[data-testid="stHeader"] {
     bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 9999;
+    z-index: 99999999 !important;
     background: #e0e5ec;
     border-radius: 20px;
     box-shadow: 6px 6px 16px #a3b1c6, -6px -6px 16px #ffffff;
@@ -370,6 +375,15 @@ header[data-testid="stHeader"] {
     justify-content: center;
     gap: 3px;
     pointer-events: none;
+    transition: left 0.3s ease-in-out, max-width 0.3s ease-in-out;
+}
+
+/* On desktop with expanded sidebar, center the banner cleanly inside the main content area */
+@media (min-width: 992px) {
+    [data-testid="stSidebar"][aria-expanded="true"] ~ [data-testid="stAppViewContainer"] .limits-footer {
+        left: calc(50% + 150px);
+        max-width: calc(100vw - 360px);
+    }
 }
 
 .limits-footer b {
